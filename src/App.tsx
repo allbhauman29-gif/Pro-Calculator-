@@ -457,20 +457,26 @@ interface CalcButtonProps {
 }
 
 function CalcButton({ label, onClick, variant = 'number', icon, className = '', theme = 'dark' }: CalcButtonProps) {
-  const baseStyles = "h-16 rounded-full flex items-center justify-center text-2xl font-medium transition-all active:scale-95 select-none";
+  const baseStyles = "h-16 rounded-2xl flex items-center justify-center text-2xl font-bold transition-all select-none relative group";
   
   const variants = {
-    number: theme === 'dark' ? "bg-[#333333] hover:bg-[#444444] text-white" : "bg-neutral-200 hover:bg-neutral-300 text-neutral-900",
-    accent: "bg-[#FF9F0A] hover:bg-[#FFB340] text-white",
-    secondary: "bg-[#A5A5A5] hover:bg-[#D4D4D2] text-black",
+    number: theme === 'dark' 
+      ? "bg-[#333333] text-white shadow-[0_6px_0_0_#1a1a1a] active:shadow-[0_2px_0_0_#1a1a1a]" 
+      : "bg-neutral-200 text-neutral-900 shadow-[0_6px_0_0_#b5b5b5] active:shadow-[0_2px_0_0_#b5b5b5]",
+    accent: theme === 'dark'
+      ? "bg-orange-500 text-white shadow-[0_6px_0_0_#b35a00] active:shadow-[0_2px_0_0_#b35a00]"
+      : "bg-orange-500 text-white shadow-[0_6px_0_0_#b35a00] active:shadow-[0_2px_0_0_#b35a00]",
+    secondary: theme === 'dark'
+      ? "bg-neutral-400 text-black shadow-[0_6px_0_0_#737373] active:shadow-[0_2px_0_0_#737373]"
+      : "bg-neutral-300 text-black shadow-[0_6px_0_0_#999999] active:shadow-[0_2px_0_0_#999999]",
   };
 
   return (
     <button 
       onClick={onClick}
-      className={`${baseStyles} ${variants[variant]} ${className}`}
+      className={`${baseStyles} ${variants[variant]} ${className} active:translate-y-[4px] hover:-translate-y-[1px]`}
     >
-      {icon || label}
+      <span className="drop-shadow-sm">{icon || label}</span>
     </button>
   );
 }
