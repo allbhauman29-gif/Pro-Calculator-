@@ -18,11 +18,16 @@ jobs:
           npm install @capacitor/core @capacitor/cli @capacitor/android
 
       - name: Build Web Project
-        run: npm run build
-
-      - name: Capacitor Sync
         run: |
-          npx cap init "ProCalc" "com.procalc.app" --web-dir dist
+          # Vite build command
+          npm run build 
+
+      - name: Capacitor Setup & Sync
+        run: |
+          # Agar config file nahi hai toh generate karein
+          if [ ! -f "capacitor.config.json" ]; then
+            npx cap init "Pro Calculator" "com.procalc.app" --web-dir dist
+          fi
           npx cap add android
           npx cap sync android
 
